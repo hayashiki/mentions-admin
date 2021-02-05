@@ -14,7 +14,7 @@ function createApolloClient() {
       cache: new InMemoryCache(),
     });
   } catch (error) {
-    console.error("fail to create apollo client")
+    console.error("fail to create apollo client", error)
   }
 }
 

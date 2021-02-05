@@ -1,9 +1,9 @@
 package app
 
 import (
+	"fmt"
 	"github.com/go-chi/chi"
 	chiMiddleware "github.com/go-chi/chi/middleware"
-	"github.com/go-chi/cors"
 	"github.com/hayashiki/mentions-admin/pkg/config"
 	"go.pyspa.org/brbundle"
 	"go.pyspa.org/brbundle/brchi"
@@ -49,16 +49,16 @@ func (app *App) Handler() http.Handler {
 		chiMiddleware.Logger,
 		chiMiddleware.Recoverer,
 	)
-	r.Use(cors.Handler(cors.Options{
-		// AllowedOrigins: []string{"https://foo.com"}, // Use this to allow specific origin hosts
-		AllowedOrigins: []string{"*"},
-		// AllowOriginFunc:  func(r *http.Request, origin string) bool { return true },
-		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
-		ExposedHeaders:   []string{"Link"},
-		AllowCredentials: false,
-		MaxAge:           300, // Maximum value not ignored by any of major browsers
-	}))
+	//r.Use(cors.Handler(cors.Options{
+	//	// AllowedOrigins: []string{"https://foo.com"}, // Use this to allow specific origin hosts
+	//	AllowedOrigins: []string{"*"},
+	//	// AllowOriginFunc:  func(r *http.Request, origin string) bool { return true },
+	//	AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+	//	AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+	//	ExposedHeaders:   []string{"Link"},
+	//	AllowCredentials: false,
+	//	MaxAge:           300, // Maximum value not ignored by any of major browsers
+	//}))
 
 	r.Method(http.MethodGet, "/health", appHandler(app.healthCheck))
 
@@ -69,6 +69,10 @@ func (app *App) Handler() http.Handler {
 }
 
 func (app *App) healthCheck(w http.ResponseWriter, r *http.Request) *appError {
+	userEmail := r.Header.Get("X-Goog-Authenticated-User-Email")
+	userId := r.Header.Get("X-Goog-Authenticated-User-ID")
+
 	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Request by: %s, %s\n", userEmail, userId)
 	return nil
 }

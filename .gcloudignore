@@ -24,5 +24,8 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-embedded-bundle.go
 node_modules
+#embedded-bundle.go # cloudrunでは不要
+
+# cloudrunでは必要
+web
