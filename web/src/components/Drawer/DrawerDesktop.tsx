@@ -1,5 +1,5 @@
 import { Box, Drawer, makeStyles } from '@material-ui/core'
-import React from 'react'
+import React, { memo } from 'react'
 import { DrawerType } from '@/@types/types'
 import DrawerList from '@/components/Drawer/DrawerList'
 
@@ -37,4 +37,4 @@ const DrawerDesktop = () => {
   )
 }
 
-export default DrawerDesktop;
+export default memo(DrawerDesktop);
