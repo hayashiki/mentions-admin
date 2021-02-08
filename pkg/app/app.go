@@ -5,6 +5,7 @@ import (
 	"github.com/go-chi/chi"
 	chiMiddleware "github.com/go-chi/chi/middleware"
 	"github.com/hayashiki/mentions-admin/pkg/config"
+	"github.com/hayashiki/mentions/pkg/repository"
 	"go.pyspa.org/brbundle"
 	"go.pyspa.org/brbundle/brchi"
 	"log"
@@ -34,12 +35,16 @@ func (fn appHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 type App struct {
-	isDev bool
+	isDev    bool
+	slack    config.Slack
+	teamRepo repository.TeamRepository
 }
 
-func NewApp(config *config.Config) (*App, error) {
+func NewApp(config *config.Config, teamRepo repository.TeamRepository) (*App, error) {
 	return &App{
-		isDev: config.IsDev,
+		isDev:    config.IsDev,
+		slack:    config.Slack,
+		teamRepo: teamRepo,
 	}, nil
 }
 
@@ -61,6 +66,8 @@ func (app *App) Handler() http.Handler {
 	//}))
 
 	r.Method(http.MethodGet, "/health", appHandler(app.healthCheck))
+	r.Method(http.MethodGet, "/slack/team/auth", appHandler(app.slackTeamAuthorize))
+	r.Method(http.MethodGet, "/slack/team/callback", appHandler(app.slackTeamCallback))
 
 	r.NotFound(brchi.Mount(brbundle.WebOption{
 		SPAFallback: "index.html",

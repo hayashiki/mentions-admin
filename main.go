@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/hayashiki/mentions-admin/pkg/app"
 	"github.com/hayashiki/mentions-admin/pkg/config"
+	"github.com/hayashiki/mentions/pkg/repository"
 	"log"
 	"net/http"
 	"os"
@@ -12,7 +13,9 @@ import (
 //go:generate go run go.pyspa.org/brbundle/cmd/brbundle embedded -f web/dist
 func main() {
 	config := config.MustReadConfigFromEnv()
-	app, err := app.NewApp(config)
+	teamRepo := repository.NewTeamRepository(repository.GetClient(config.GCPProject))
+
+	app, err := app.NewApp(config, teamRepo)
 
 	if err != nil {
 		log.Fatal(err)
