@@ -51,7 +51,7 @@ func (app *App) slackTeamCallback(w http.ResponseWriter, r *http.Request) *appEr
 
 	}
 	token := auth.NewToken(app.slack.ClientID, app.slack.SecretID, app.slack.RedirectURL)
-	authz := usecase.NewTeamAuth(token, app.teamRepo)
+	authz := usecase.NewTeamAuth(token, app.teamRepo, app.userRepo)
 	input := &usecase.TeamAuthInput{Code: resp.Code}
 	if err := authz.Do(r.Context(), input); err != nil {
 		return &appError{
@@ -63,3 +63,8 @@ func (app *App) slackTeamCallback(w http.ResponseWriter, r *http.Request) *appEr
 	fmt.Fprintf(w, "team is: %s", "ok")
 	return nil
 }
+
+//func (app *App) importRemoteSlackUser(w http.ResponseWriter, r *http.Request) *appError {
+//
+//
+//}

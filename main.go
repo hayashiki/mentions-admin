@@ -14,8 +14,9 @@ import (
 func main() {
 	config := config.MustReadConfigFromEnv()
 	teamRepo := repository.NewTeamRepository(repository.GetClient(config.GCPProject))
+	userRepo := repository.NewUserRepository(repository.GetClient(config.GCPProject))
 
-	app, err := app.NewApp(config, teamRepo)
+	app, err := app.NewApp(config, teamRepo, userRepo)
 
 	if err != nil {
 		log.Fatal(err)

@@ -38,13 +38,15 @@ type App struct {
 	isDev    bool
 	slack    config.Slack
 	teamRepo repository.TeamRepository
+	userRepo repository.UserRepository
 }
 
-func NewApp(config *config.Config, teamRepo repository.TeamRepository) (*App, error) {
+func NewApp(config *config.Config, teamRepo repository.TeamRepository, userRepo repository.UserRepository) (*App, error) {
 	return &App{
 		isDev:    config.IsDev,
 		slack:    config.Slack,
 		teamRepo: teamRepo,
+		userRepo: userRepo,
 	}, nil
 }
 

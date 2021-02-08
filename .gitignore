@@ -12,3 +12,4 @@ bin/
 vendor/
 embedded-bundle.go
 web/dist/
+app.yaml

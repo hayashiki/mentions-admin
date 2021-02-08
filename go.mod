@@ -9,6 +9,7 @@ require (
 	github.com/hayashiki/go-pkg v0.0.3
 	github.com/hayashiki/mentions v0.0.3
 	github.com/kelseyhightower/envconfig v1.4.0
+	github.com/slack-go/slack v0.7.2
 	go.pyspa.org/brbundle v1.1.7
 	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
 	golang.org/x/sys v0.0.0-20200803210538-64077c9b5642 // indirect
