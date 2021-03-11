@@ -1,0 +1,31 @@
+### Repo ###
+type Repo implements Node {
+    id: ID!
+    name: String!
+    owner: String!
+    fullname: String!
+}
+
+type RepoEdge implements Edge {
+    cursor: String!
+    node: Repo!
+}
+
+type RepoConnection implements Connection {
+    pageInfo: PageInfo!
+    edges: [RepoEdge]!
+}
+
+input RepoFilter {
+    role: String
+}
+
+input CreateRepoInput {
+    name: String!
+    owner: String!
+    fullname: String!
+}
+
+input UpdateRepoInput {
+    id: ID!
+}

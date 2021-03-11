@@ -1,0 +1,47 @@
+### User ###
+type User implements Node {
+    id: ID!
+    name: String!
+    avatar: String!
+    """manage secret"""
+    token: String!
+    slackId: String!
+    githubId: String
+    teamId: String!
+}
+
+type UserEdge implements Edge {
+    cursor: String!
+    node: User!
+}
+
+type UserConnection implements Connection {
+    pageInfo: PageInfo!
+    edges: [UserEdge]!
+}
+
+input UserFilter {
+    role: String
+}
+
+input CreateUserInput {
+    id: ID!
+    name: String!
+    avatar: String
+#    """manage secret"""
+#    token: String
+    slackId: String
+    githubId: String
+    teamId: String
+}
+
+input UpdateUserInput {
+    id: ID!
+    name: String!
+    avatar: String!
+    """manage secret"""
+    token: String!
+    slackId: String!
+    githubId: String
+    teamId: String!
+}

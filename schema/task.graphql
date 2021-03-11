@@ -1,0 +1,37 @@
+### Task ###
+type Task implements Node {
+    id: ID!
+    repoId: Int!
+    teamId: String!
+    installationId: Int!
+    channel: String!
+}
+
+type TaskEdge implements Edge {
+    cursor: String!
+    node: Task!
+}
+
+type TaskConnection implements Connection {
+    pageInfo: PageInfo!
+    edges: [TaskEdge]!
+}
+
+input TaskFilter {
+    role: String
+}
+
+input CreateTaskInput {
+    repoId: Int!
+    teamId: Int!
+    installationId: Int!
+    channel: String!
+}
+
+input UpdateTaskInput {
+    id: ID!
+    repoId: String!
+    teamId: String!
+    installationId: String!
+    channel: String!
+}
